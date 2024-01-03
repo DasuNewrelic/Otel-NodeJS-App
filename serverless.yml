@@ -1,0 +1,37 @@
+org: zmrfzn
+app: otel-sls-sdk-dev1
+service: otel-sls-sdk
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  tracing:
+    lambda: false
+    apiGateway: false
+
+functions:
+  api:
+    handler: index.handler
+    environment:
+      NODE_OPTIONS: "--require ./otel-wrapper"
+      OTEL_SERVICE_NAME: "Node-Lambda-Otel-APP02"
+      EXPRESS_OTEL_API_ENDPOINT: "http://3.230.230.121/v3/api"
+      NR_LICENSE: "42b5f1f10bc30aacc7429539e5da7a68FFFFNRAL"
+      OTEL_EXPORTER_OTLP_ENDPOINT: https://staging-otlp.nr-data.net:4318
+      ENABLE_FS_INSTRUMENTATION: false
+      OTEL_EXPORTER_OTLP_LOGS_TIMEOUT: 10000
+      OTEL_EXPORTER_OTLP_TIMEOUT: 10000
+
+    events:
+      - httpApi: "*"
+
+dashboard:
+  disableMonitoring: true
+
+plugins:
+  - serverless-offline
+
+package:
+  excludeDevDependencies: true
