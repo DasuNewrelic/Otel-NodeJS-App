@@ -13,7 +13,7 @@ const {
 const { OTLPLogExporter } = require('@opentelemetry/exporter-logs-otlp-http');
 
 const collectorOptions = {
-    url: 'https://staging-otlp.nr-data.net:4318/v1/logs', // url is optional and can be omitted - default is http://localhost:4318/v1/logs
+    url: 'https://otlp.nr-data.net:4318/v1/logs', // url is optional and can be omitted - default is http://localhost:4318/v1/logs
     concurrencyLimit: 1, // an optional limit on pending requests
   };
 
